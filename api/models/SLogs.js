@@ -1,0 +1,38 @@
+///s_logs系统日志实体
+module.exports={
+   tableName:'s_logs',
+   attributes:{
+       id:{
+           type:'integer',
+           autoIncrement:true,
+           primaryKey:true,
+           unique:true
+       },
+       action:{
+           type:'string',
+           size:150
+       },
+       ip:{
+           type:'string',
+           size:100
+       },
+       createTime:{
+           type:'datetime'
+       },
+       category:{
+           type:'integer'
+
+       },
+        appid:{
+           type:'string',
+           size:32
+       },
+       userId:{
+           type:'integer'
+       },
+       userName:{
+            type:'string',
+           size:100
+       }
+   }
+};

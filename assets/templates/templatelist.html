@@ -1,0 +1,32 @@
+<%list.template.forEach(function(item){%>
+    <li>
+        <a class="list-item w30">
+            <%=item.name%>
+        </a>
+        <a class="list-item w20">
+            <%=item.categoryId.categoryName%>
+        </a>
+        <a class="list-item w20">
+            <% if(item.contentType==0){%>
+                PLAIN TEXT
+                <%} else{%>
+                    HTML
+                    <%}%>
+        </a>
+        <span class="list-item right">
+<%if(item.status==1){%>
+                                <a class="list-btn status check active" data-value="<%=item.id%>" data-type="<%=item.status%>">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </a>
+                                <%} else{%>
+                                    <a class="list-btn status cross" data-value="<%=item.id%>" data-type="<%=item.status%>">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </a>
+                                    <%}%>
+                                        <a class="list-btn text margin" data-action="DELETE" data-value="<%=item.id%>" data-name="<%=item.name%>">DELETE</a>
+                                        <a class="list-btn text margin" href="/template/edit/<%=item.id%>">EDIT</a>
+                            </span>
+
+
+    </li>
+    <%});%>

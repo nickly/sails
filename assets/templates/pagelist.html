@@ -1,0 +1,10 @@
+<% for(var i=1;i<=pageCount;i++){%>
+    <%if(i==1){%>
+        <a class="filter-page-item filter-page-item-<%=i%>  active" data="<%=i%>">
+            <%=i%>
+        </a>
+        <%} else{%>
+            <a class="filter-page-item filter-page-item-<%=i%>" data="<%=i%>">
+                <%=i%>
+            </a>
+            <%}}%>

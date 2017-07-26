@@ -1,0 +1,406 @@
+<link rel="stylesheet" href="/styles/newStyle.css">
+<link rel="stylesheet" href="/styles/newStyle_moblie.css">
+
+<script type="text/javascript">
+    var path = [
+        '../js/src/views/role'
+    ]
+
+    require(path, function(callBack) {
+        callBack.constructor();
+    });
+</script>
+
+
+<%- partial('./partials/menu.ejs') %>
+
+
+    <section class="page">
+
+        <div class="block-topbar">
+            <div class="topbar-title uns" id="title">ROLE</div>
+
+            <div class="topbar-titleRight">
+                <a class="topbar-btn uns" id="openBtn">NEW</a>
+                <a class="topbar-btn uns" id="back_Btn" style='display:none;'>&gt;&gt;BACK</a>
+            </div>
+
+
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div class="block">
+
+            <div class="search-bar" id="search-bar">
+                <div class="search_barBlock">
+                    <span class="searchFont">SEARCH :</span>
+                    <input name="search" type="text" value="" class="text" />
+                    <span class="button" id="searchBtn" data-type="searchRole">
+                    <i>Search</i>
+                </span>
+                </div>
+            </div>
+
+            <div class="data-filter">
+                <div class="data-filter-item" id="filter-status">
+                    <div class="data-filter-item-title">
+                        STATUS
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <a class="filter-order-item active" data-state="-3" data-type="state">
+                                    ALL
+                                </a>
+                        <a class="filter-order-item" data-state="1" data-type="state">
+                                    ENABLE
+                                </a>
+                        <a class="filter-order-item" data-state="0" data-type="state">
+                                    DISABLE
+                               </a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <input type="hidden" id="stateHidden" value="-3" />
+                </div>
+
+                <div class="data-filter-item" id="filter-orderBy">
+
+                    <div class="data-filter-item-title">
+                        ORDER BY:
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <a class="filter-order-item active" data-state="name" data-type="order">
+                                NAME
+                            </a>
+                        <a class="filter-order-item" data-state="code" data-type="order">
+                               CODE
+                            </a>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <input type="hidden" id="orderByHidden" value="name" />
+
+                </div>
+
+            </div>
+
+            <div class="block minigap" id="page-bar">
+                <div class="data-filter">
+                    <div class="data-filter-item" id="pageContainer">
+                        <div class="data-filter-item-title">
+                            PAGE:
+                        </div>
+                        <div class="data-filter-item-ctn" id="pageContent">
+                            <%  for(var i=0; i<pageInfo.PageCount; i++){ %>
+                                <% if(pageInfo.PageIndex == (i+1)){ %>
+                                    <a class="filter-page-item filter-page-item-1  active" data="<%= (i+1) %>">
+                                        <%= (i+1) %>
+                                    </a>
+                                    <% }else{ %>
+                                        <a class="filter-page-item filter-page-item-1" data="<%= (i+1) %>">
+                                            <%= (i+1) %>
+                                        </a>
+                                        <% } %>
+                                            <% } %>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <input type="hidden" id="pageHidden" value="1" data-type="searchRole">
+                </div>
+            </div>
+
+
+            <!--  角色列表 -->
+            <div class="project-list-ctn" id="roleList">
+                <table cellspacing="0" cellpadding="0" border="0" class="project-list" width="100%">
+                    <tr class="head">
+                        <td class="user-item" width="45%">
+                            ROLENAME
+                        </td>
+                        <td class="user-item" width="15%">CODE</td>
+                        <td class="user-item" width="10%">STATEUS</td>
+                        <td class="user-item" width="0%" style="display:none;">description</td>
+                        <td class="user-item" width="30%"></td>
+                    </tr>
+
+                    <% roleList.forEach(function(item){%>
+                        <%   if(item.isDelete !=1){  %>
+                            <tr data-id="<%= item.id %>">
+                                <td class="user-item  user-name" valign="middle" width="45%">
+                                    <%= item.name %>
+                                </td>
+                                <td class="user-item  user-code" valign="middle" width="15%">
+                                    <%= item.code %>
+                                </td>
+                                <td class="user-item  user-state" valign="middle" width="10%">
+                                    <%if (item.state){ %>
+                                        <a class="list-btn status check active" data-state='1'>
+                                            <i class="fa fa-check" aria-hidden="true"></i>
+                                        </a>
+                                        <% }else{ %>
+                                            <a class="list-btn status cross" data-state='0'>
+                                                <i class="fa fa-times" aria-hidden="true"></i>
+                                            </a>
+                                            <% } %>
+                                </td>
+                                <td class="user-item  user-description" valign="middle" width="0%" style="display:none;">
+                                    <%= item.description %>
+                                </td>
+                                <td class="user-item  align-left" valign="middle" width="30%">
+                                    <a class="btn-city btn-edit">Edit</a>
+                                    <a class="btn-city btn-delete">Del</a>
+                                    <a class="btn-city btn-power">Power</a>
+                                </td>
+                            </tr>
+                            <%   }  %>
+                                <% }) %>
+                </table>
+            </div>
+
+            <!--  新增角色 -->
+            <div class="add_userBlock" id="addNewRole">
+                <!--<div class="header">Add New Role</div>-->
+                <ul>
+                    <li>
+                        <div class="left">Role Name:</div>
+                        <div class="right"><input name="rolename" type="text" value="" class="input_text" /></div>
+                    </li>
+                    <li>
+                        <div class="left">Role Code:</div>
+                        <div class="right"><input name="rolecode" type="text" value="" class="input_text" /></div>
+                    </li>
+                    <li>
+                        <div class="left">Description:</div>
+                        <div class="right"><textarea name="description" cols="30" rows="10" class="input_textare"></textarea></div>
+                    </li>
+                    <li class="bottom">
+                        <span class="subButton alltrans" id="add_submit" action='add'>Save</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!--  编辑角色 -->
+            <div class="add_userBlock" id="editRole">
+                <!--<div class="header">Edit Role</div>-->
+                <ul role-id="">
+                    <li>
+                        <div class="left">Role Name:</div>
+                        <div class="right"><input name="rolename" type="text" value="" class="input_text" /></div>
+                    </li>
+                    <li>
+                        <div class="left">Role Code:</div>
+                        <div class="right"><input name="rolecode" type="text" value="" class="input_text  input_readonly" readonly='true' /></div>
+                    </li>
+                    <li>
+                        <div class="left">Description:</div>
+                        <div class="right"><textarea name="description" cols="30" rows="10" class="input_textare"></textarea></div>
+                    </li>
+                    <li class="bottom">
+                        <span class="subButton alltrans" id="edit_submit" action='edit'>Save</span>
+                    </li>
+                </ul>
+            </div>
+
+
+            <!--  权限列表 -->
+            <div class="project-list-ctn  actionList" id="actionList">
+                <table cellspacing="0" cellpadding="0" border="0" class="project-list" width="100%">
+                </table>
+            </div>
+
+
+
+        </div>
+        </div>
+
+
+    </section>
+
+    <section class="window alltrans" id="window-new-user">
+
+        <div class="window-ctn">
+
+            <div class="window-title"><span>Create New User</span></div>
+
+            <div class="window-data-area">
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">Username</div>
+                        <div class="window-data-item-des">Case sensitive</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="text" name="new-user-username" id="new-user-username">
+
+                    </div>
+
+                </div>
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">Password</div>
+                        <div class="window-data-item-des">Case sensitive</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="password" name="new-user-password" id="new-user-password">
+
+                    </div>
+
+                </div>
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">Re-password</div>
+                        <div class="window-data-item-des">Case sensitive</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="password" name="new-user-repassword" id="new-user-repassword">
+
+                    </div>
+
+                </div>
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">User Type</div>
+                        <div class="window-data-item-des"></div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <a class="window-data-radio radio-50" data="0">USER</a>
+                        <a class="window-data-radio radio-50" data="1">ADMINISTRATOR</a>
+                        <input class="hidden" type="text" name="new-user-level" id="new-user-level" value="0">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="window-action-area">
+
+                <a class="window-action-btn" id="btn-new-user-submit">Submit</a>
+                <a class="window-action-btn" id="btn-new-user-cancel">Cancel</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="window alltrans" id="window-reset-user">
+
+        <div class="window-ctn">
+
+            <div class="window-title" id="window-title-reset-user"><span>Reset Password</span></div>
+
+            <div class="window-data-area">
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">New Password</div>
+                        <div class="window-data-item-des">Case sensitive</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="password" name="reset-user-password" id="reset-user-password">
+
+                    </div>
+
+                </div>
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">Re-password</div>
+                        <div class="window-data-item-des">Case sensitive</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="password" name="reset-user-repassword" id="reset-user-repassword">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="window-action-area">
+
+                <a class="window-action-btn" id="btn-reset-user-submit">Submit</a>
+                <a class="window-action-btn" id="btn-reset-user-cancel">Cancel</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="tip-alert-layer" class="tip-layer alltrans">
+
+        <div id="tip-alert" class="tip-board alltrans">
+
+            <div id="tip-alert-text" class="tip-text"></div>
+
+            <div class="tip-btnarea">
+
+                <a id="tip-alert-btn" class="tip-btn">OK</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="tip-confirm-layer" class="tip-layer alltrans">
+
+        <div id="tip-confirm" class="tip-board alltrans">
+
+            <div id="tip-confirm-text" class="tip-text"></div>
+
+            <div class="tip-btnarea">
+
+                <a id="tip-confirm-btn1" class="tip-btn alltrans">Yes</a>
+                <a id="tip-confirm-btn2" class="tip-btn alltrans">Cancel</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="tip-info-layer" class="tip-layer alltrans">
+
+        <div id="tip-info" class="tip-board alltrans">
+
+            <div id="tip-info-text" class="tip-text">Please Wait...</div>
+
+        </div>
+
+    </section>

@@ -1,0 +1,17 @@
+<%list.forEach(function(item){%>
+    <li>
+        <a class="user-item wide" id="event-name">
+            <%=item.categoryName%>
+        </a>
+        <a class="user-item">
+            <%=item.description%>
+        </a>
+
+        <a class="btn-city btn-delete-event" data-type="DELETE" data-value="<%=item.id%>" data-name="<%=item.categoryName%>">
+            DELETE
+        </a>
+        <a class="btn-city" data-type="EDIT" data-value="<%=item.id%>" data-name="<%=item.categoryName%>" data-description="<%=item.description%>">
+            EDIT
+        </a>
+    </li>
+    <%});%>

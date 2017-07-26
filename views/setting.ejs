@@ -1,0 +1,56 @@
+<%- partial('./partials/menu.ejs') %>
+    <script type="text/javascript">
+        var path = [
+            '../js/src/views/setting.js'
+        ]
+
+        require(path, function(callBack) {
+            callBack.constructor();
+        });
+    </script>
+    <section class="page">
+        <div class="block-topbar">
+            <div class="topbar-title uns">
+                <%=__("USERINFO")%>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="block">
+            <div class="pd-data-area">
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('Old Password')%>
+                        </div>
+                    </div>
+                    <div class="pd-line-right ">
+                        <input type="password" class="pd-item-resid" name="pd-item-resid-1" id="txtOldPassword" spellcheck="false" value="">
+                    </div>
+                </div>
+                <div class="pd-sep">
+                </div>
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('New Password')%>
+                        </div>
+                    </div>
+                    <div class="pd-line-right ">
+                        <input type="password" class="pd-item-resid" name="pd-item-resid-1" id="txtNewPassword" spellcheck="false" value="">
+                    </div>
+                </div>
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('Confirm Password')%>
+                        </div>
+                    </div>
+                    <div class="pd-line-right">
+                        <input type="password" class="pd-item-resid" name="pd-item-resid-1" id="txtConfimPassword" spellcheck="false" value="">
+                    </div>
+                </div>
+            </div>
+            <a class="pd-submit alltrans" id="saveBtn">Save</a>
+        </div>
+    </section>
+    <%- partial('./partials/dialog.ejs') %>

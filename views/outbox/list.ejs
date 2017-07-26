@@ -1,0 +1,230 @@
+<%- partial('../partials/menu.ejs') %>
+    <script type="text/javascript">
+        var path = [
+            '../js/src/views/outbox.js'
+        ]
+
+        require(path, function(callBack) {
+            callBack.constructor();
+        });
+    </script>
+    <section class="page">
+        <div class="block-topbar">
+            <div class="topbar-title uns">
+                <%=__("OUTBOX")%>
+            </div>
+            <a class="topbar-btn uns" id="btn-new-template" href="/outbox/compose">COMPOSE</a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="block minigap" id="entries-search">
+            <div class="data-filter" id="filter-search-ctn">
+                <div class="data-filter-item">
+                    <div class="data-filter-item-title">
+                        <%=__('SEARCH')%>:
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <input type="text" name="data-search" id="data-filter-search-input">
+                        <a class="" id="data-filter-search-item">
+                            <%=__('SEARCH')%>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="block minigap">
+            <div class="data-filter">
+                <div class="data-filter-item" id="filter-category">
+                    <div class="data-filter-item-title">
+                        <%=__('CATEGORY')%>:
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <a class="filter-market-item active" data="-1">
+                            <%=__('ALL')%>
+                        </a>
+                        <%_.each(categoryList,function(item,index){%>
+                            <a class="filter-market-item" data="<%=item.id%>">
+                                <%=__(item.categoryName)%>
+                                    <span class="num">(<%=item.outboxs.length%>)</span>
+                            </a>
+                            <%});%>
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <input type="hidden" id="categoryHidden" />
+                <div class="data-filter-item" id="filter-status">
+                    <div class="data-filter-item-title">
+                        <%=__('STATUS')%>
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <a class="filter-order-item active" data="-3" data-type="status">
+                            <%=__('ALL')%>
+                        </a>
+                        <a class="filter-order-item" data="1" data-type="status">
+                            <%=__('SUCCESS')%>
+                        </a>
+                        <a class="filter-order-item" data="0" data-type="status">
+                            <%=__('WAITING')%>
+                        </a>
+                        <a class="filter-order-item" data="-1" data-type="status">
+                            <%=__('FAILED')%>
+                        </a>
+                        <a class="filter-order-item" data="-2" data-type="status">
+                            <%=__('CANCLE')%>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <input type="hidden" id="enableHidden" value="-3" />
+            </div>
+        </div>
+        <div class="block minigap">
+            <div class="data-filter">
+                <div class="data-filter-item" id="filter-order">
+                    <div class="data-filter-item-title">
+                        <%=__('ORDER BY')%>:
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <a class="filter-order-item active" data="desc" data-type="sort">
+                            <%=__('MOST RECENT')%>
+                        </a>
+                        <a class="filter-order-item" data="asc" data-type="sort">
+                            <%=__('LEAST RECENT')%>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <input type="hidden" id="sortHidden" value="desc" />
+                <% if(list.pageInfo.PageCount>1){%>
+                    <div class="data-filter-item" id="pageContainer">
+                        <div class="data-filter-item-title">
+                            <%=__('PAGE')%>:
+                        </div>
+                        <div class="data-filter-item-ctn" id="pageContent">
+                            <% for(var i=1;i<=list.pageInfo.PageCount;i++){%>
+                                <%if(i==1){%>
+                                    <a class="filter-page-item filter-page-item-<%=i%>  active" data="<%=i%>">
+                                        <%=__(i)%>
+                                    </a>
+                                    <%} else{%>
+                                        <a class="filter-page-item filter-page-item-<%=i%>" data="<%=i%>">
+                                            <%=__(i)%>
+                                        </a>
+                                        <%}}%>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <%}%>
+                        <input type="hidden" id="pageHidden" value="1" />
+            </div>
+        </div>
+        <div class="block">
+            <div class="list-ctn">
+                <ul class="list-ul" id="list">
+                    <li class="head">
+                        <a class="list-item w20">
+                            <%=__('RECIPIENT')%>
+                        </a>
+                        <a class="list-item w30">
+                            <%=__('SUBJECT')%>
+                        </a>
+                        <a class="list-item w10">
+                            <%=__('CATEGORY')%>
+                        </a>
+                        <a class="list-item w10">
+                            <%=__('TIME')%>
+                        </a>
+                        <span class="list-item right">
+                            <a class="list-item w10">
+                            <%=__('STATUS')%>
+                        </a>
+                        </span>
+
+                    </li>
+                    <%_.each(list.outboxList,function(item,index){%>
+                        <li>
+                            <a class="list-item w20">
+                                <%=__(item.recipient)%>
+                            </a>
+                            <a class="list-item w30">
+                                <%=__(item.subject)%>
+                            </a>
+                            <a class="list-item w10">
+                                <%=__(item.categoryId.categoryName)%>
+                            </a>
+                            <a class="list-item w10">
+                                <%=moment(item.createTime).format('MM/DD HH:mm:ss')%>
+                            </a>
+                            <span class="list-item right">
+<%if(item.status==1){%>
+                                <a class="list-btn status check active" data-value="<%=item.id%>" data-type="<%=item.status%>">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </a>
+                                <%} else if(item.status==-2){%>
+                                    <a class="list-btn status cross" data-value="<%=item.id%>" data-type="<%=item.status%>">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </a>
+                                    <%} else{%>
+                                          <a class="list-btn status question" data-value="<%=item.id%>" data-type="<%=item.status%>">
+                                        <i class="fa fa-question" aria-hidden="true"></i>
+                                    </a>
+                                        <%}%>
+                                                      <a class="list-btn text margin" data-action="RETRY" data-value="<%=item.id%>" data-category="<%=item.categoryId.id%>" data-name="<%=item.subject%>">RETRY</a>
+                                     <a class="list-btn text margin" data-action="MOVE" data-value="<%=item.id%>" data-category="<%=item.categoryId.id%>" data-name="<%=item.subject%>">MOVE</a>
+                                        <a class="list-btn text margin" data-action="DELETE" data-value="<%=item.id%>" data-category="<%=item.categoryId.id%>" data-name="<%=item.subject%>">DELETE</a>
+                                       
+                            </span>
+
+
+                        </li>
+                        <%});%>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <section class="window alltrans" id="window-remove-category">
+
+        <div class="window-ctn">
+            <div class="window-title"><span>Remove to New Category</span></div>
+
+            <div class="window-data-area">
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">Category Name</div>
+                        <div class="window-data-item-des">Required</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <div class="data-filter-item-ctn2">
+
+                            <%_.each(categoryList,function(item,index){%>
+                                <a class="filter-market-item" data="<%=item.id%>" data-action="REMOVE" data-attr="CATEGORY_REMOVE">
+                                    <%=__(item.categoryName)%>
+                                        <span class="num">(<%=item.outboxs.length%>)</span>
+                                </a>
+                                <%});%>
+                                    <input type="hidden" id="newCategoryId" value="" />
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="window-action-area">
+                <input type="hidden" id="outboxId" value="" />
+                <a class="window-action-btn" id="btn-remove-category-submit">Submit</a>
+                <a class="window-action-btn" id="btn-remove-category-cancel">Cancel</a>
+
+            </div>
+
+        </div>
+
+    </section>
+    <%- partial('../partials/dialog.ejs') %>

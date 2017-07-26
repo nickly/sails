@@ -1,0 +1,103 @@
+<%- partial('../partials/menu.ejs') %>
+    <script type="text/javascript">
+        var path = [
+            '../js/src/views/templatecategory.js'
+        ]
+
+        require(path, function(callBack) {
+            callBack.constructor();
+        });
+    </script>
+    <section class="page">
+        <div class="block-topbar">
+            <div class="topbar-title uns"><b>TEMPLATE</b> CATEGORY</div>
+            <a class="topbar-btn uns" id="btn-new-category">NEW</a>
+            <a class="topbar-btn uns" id="btn-back-category" href='/template'>>>BACK</a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="block">
+
+            <div class="project-list-ctn">
+
+                <ul class="project-list" id="list">
+
+                    <li class="head">
+                        <a class="user-item wide">CATEGORY NAME</a>
+                        <a class="user-item">DESCRIPTION</a>
+                    </li>
+
+                    <%_.each(list,function(item,index){%>
+                        <li>
+                            <a class="user-item wide" id="event-name">
+                                <%=__(item.categoryName)%>
+                            </a>
+                            <a class="user-item">
+                                <%=item.description%>
+                            </a>
+
+                            <a class="btn-city btn-delete-event" data-type="DELETE" data-value="<%=item.id%>" data-name="<%=item.categoryName%>">
+                                <%=__('DELETE')%>
+                            </a>
+                            <a class="btn-city" data-type="EDIT" data-value="<%=item.id%>" data-name="<%=item.categoryName%>" data-description="<%=item.description%>">
+                                <%=__('EDIT')%>
+                            </a>
+                        </li>
+                        <%});%>
+
+
+                </ul>
+
+            </div>
+
+        </div>
+    </section>
+    <section class="window alltrans" id="window-new-category">
+
+        <div class="window-ctn">
+            <input type="hidden" id="categoryId" />
+            <div class="window-title"><span>Create New Category</span></div>
+
+            <div class="window-data-area">
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">Category Name</div>
+                        <div class="window-data-item-des">Required</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="text" name="new-category-name" id="new-category-name">
+
+                    </div>
+
+                </div>
+                <div class="window-data-line">
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">Description</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="text" name="new-category-description" id="new-category-description">
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="window-action-area">
+
+                <a class="window-action-btn" id="btn-new-category-submit">Submit</a>
+                <a class="window-action-btn" id="btn-new-category-cancel">Cancel</a>
+
+            </div>
+
+        </div>
+
+    </section>
+    <%- partial('../partials/dialog.ejs') %>

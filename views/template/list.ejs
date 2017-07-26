@@ -1,0 +1,170 @@
+<%- partial('../partials/menu.ejs') %>
+    <script type="text/javascript">
+        var path = [
+            '../js/src/views/template.js'
+        ]
+
+        require(path, function(callBack) {
+            callBack.constructor();
+        });
+    </script>
+    <section class="page">
+        <div class="block-topbar">
+            <div class="topbar-title uns">
+                <%=__("TEMPLATE")%>
+            </div>
+            <a class="topbar-btn uns" id="btn-new-template" href="/template/new">NEW</a>
+            <a class="topbar-btn uns" id="btn-category-event" href="/template/category">CATEGORY</a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="block minigap" id="entries-search">
+            <div class="data-filter" id="filter-search-ctn">
+                <div class="data-filter-item">
+                    <div class="data-filter-item-title">
+                        <%=__('SEARCH')%>:
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <input type="text" name="data-search" id="data-filter-search-input">
+                        <a class="" id="data-filter-search-item">
+                            <%=__('SEARCH')%>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+            </div>
+        </div>
+        <div class="block minigap">
+            <div class="data-filter">
+                <div class="data-filter-item" id="filter-category">
+                    <div class="data-filter-item-title">
+                        <%=__('CATEGORY')%>:
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <a class="filter-market-item active" data="-1">
+                            <%=__('ALL')%>
+                        </a>
+                        <%_.each(categoryList,function(item,index){%>
+                            <a class="filter-market-item" data="<%=item.id%>">
+                                <%=__(item.categoryName)%>
+                                    <span class="num">(<%=item.templates.length%>)</span>
+                            </a>
+                            <%});%>
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <input type="hidden" id="categoryHidden" />
+                <div class="data-filter-item" id="filter-status">
+                    <div class="data-filter-item-title">
+                        <%=__('STATUS')%>
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <a class="filter-order-item active" data="-1" data-type="status">
+                            <%=__('ALL')%>
+                        </a>
+                        <a class="filter-order-item" data="1" data-type="status">
+                            <%=__('ENABLE')%>
+                        </a>
+                        <a class="filter-order-item" data="0" data-type="status">
+                            <%=__('DISABLE')%>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <input type="hidden" id="enableHidden" value="-1" />
+            </div>
+        </div>
+        <div class="block minigap">
+            <div class="data-filter">
+                <div class="data-filter-item" id="filter-order">
+                    <div class="data-filter-item-title">
+                        <%=__('ORDER BY')%>:
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <a class="filter-order-item active" data="desc" data-type="sort">
+                            <%=__('MOST RECENT')%>
+                        </a>
+                        <a class="filter-order-item" data="asc" data-type="sort">
+                            <%=__('LEAST RECENT')%>
+                        </a>
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+                <input type="hidden" id="sortHidden" value="desc" />
+                <% if(list.pageInfo.PageCount>1){%>
+                    <div class="data-filter-item" id="pageContainer">
+                        <div class="data-filter-item-title">
+                            <%=__('PAGE')%>:
+                        </div>
+                        <div class="data-filter-item-ctn" id="pageContent">
+                            <% for(var i=1;i<=list.pageInfo.PageCount;i++){%>
+                                <%if(i==1){%>
+                                    <a class="filter-page-item filter-page-item-<%=i%>  active" data="<%=i%>">
+                                        <%=__(i)%>
+                                    </a>
+                                    <%} else{%>
+                                        <a class="filter-page-item filter-page-item-<%=i%>" data="<%=i%>">
+                                            <%=__(i)%>
+                                        </a>
+                                        <%}}%>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <%}%>
+                        <input type="hidden" id="pageHidden" value="1" />
+            </div>
+        </div>
+        <div class="block">
+            <div class="list-ctn">
+                <ul class="list-ul" id="list">
+                    <li class="head">
+                        <a class="list-item w30">
+                            <%=__('TEMPLATE NAME')%>
+                        </a>
+                        <a class="list-item w20">
+                            <%=__('CATEGORY')%>
+                        </a>
+                        <a class="list-item w20">
+                            <%=__('CONTENTTYPE')%>
+                        </a>
+                        <a class="list-item w10">
+                            <%=__('STATUS')%>
+                        </a>
+                    </li>
+                    <%_.each(list.template,function(item,index){%>
+                        <li>
+                            <a class="list-item w30">
+                                <%=__(item.name)%>
+                            </a>
+                            <a class="list-item w20">
+                                <%=__(item.categoryId.categoryName)%>
+                            </a>
+                            <a class="list-item w20">
+                                <% if(item.contentType==0){%>
+                                    <%=__('PLAIN TEXT')%>
+                                        <%} else{%>
+                                            <%=__('HTML')%>
+                                                <%}%>
+                            </a>
+                            <span class="list-item right">
+<%if(item.status==1){%>
+                                <a class="list-btn status check active" data-value="<%=item.id%>" data-type="<%=item.status%>">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </a>
+                                <%} else{%>
+                                    <a class="list-btn status cross" data-value="<%=item.id%>" data-type="<%=item.status%>">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </a>
+                                    <%}%>
+                                        <a class="list-btn text margin" data-action="DELETE" data-value="<%=item.id%>" data-name="<%=item.name%>">DELETE</a>
+                                        <a class="list-btn text margin" href="/template/edit/<%=item.id%>">EDIT</a>
+                            </span>
+
+
+                        </li>
+                        <%});%>
+                </ul>
+            </div>
+        </div>
+    </section>
+    <%- partial('../partials/dialog.ejs') %>

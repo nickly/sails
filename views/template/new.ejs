@@ -1,0 +1,115 @@
+<%- partial('../partials/menu.ejs') %>
+    <script type="text/javascript">
+        var path = [
+            '../js/src/views/templatenew.js'
+        ]
+
+        require(path, function(callBack) {
+            callBack.initTinymce();
+            callBack.constructor();
+        });
+    </script>
+    <section class="page">
+        <div class="block-topbar">
+            <div class="topbar-title uns">
+                <%=__("NEW TEMPLATE")%>
+            </div>
+            <a class="topbar-btn uns" id="btn-new-template" href="/template">>>BACK</a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="block">
+            <div class="pd-data-area">
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('Enable')%>
+                        </div>
+                        <div class="pd-item-des">Disabled the template or not</div>
+                    </div>
+                    <div class="pd-line-right radio">
+                        <a class="pd-data-radio pd-data-radio-enable pd-radio-25 active" data-action="status" data-value="1">ENABLE</a>
+                        <a class="pd-data-radio pd-data-radio-enable pd-radio-25 " data-action="status" data-value="0">DISABLE</a>
+                        <input class="hidden" type="text" name="pd-item-enable" id="txtEnable" value="0">
+                    </div>
+                </div>
+                <div class="pd-sep">
+                </div>
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('Category')%>
+                        </div>
+                        <div class="pd-item-des">Choose the template category</div>
+                    </div>
+                    <div class="pd-line-right radio">
+                        <%_.each(categoryList,function(item,index){%>
+                            <a class="pd-data-radio pd-data-radio-month pd-radio-25" data-action="category" data-value="<%=item.id%>">
+                                <%=__(item.categoryName)%>
+                            </a>
+                            <%});%>
+                                <input class="hidden" type="text" name="txtCategoryId" id="txtCategoryId" value="">
+                    </div>
+                </div>
+                <div class="data-page data-page-05 active">
+                    <div class="pd-sep"></div>
+                    <div class="pd-line">
+                        <div class="pd-line-left">
+                            <div class="pd-item-title">
+                                <%=__('Template Name')%>
+                            </div>
+                            <div class="pd-item-des">Entry Resid</div>
+                        </div>
+                        <div class="pd-line-right">
+                            <input type="text" class="pd-item-resid" name="pd-item-resid-1" id="txtName" spellcheck="false" value="">
+                        </div>
+                    </div>
+                    <div class="pd-line">
+                        <div class="pd-line-left">
+                            <div class="pd-item-title">
+                                <%=__('Content Type')%>
+                            </div>
+                            <div class="pd-item-des">Choose the mail content type.</div>
+                        </div>
+                        <div class="pd-line-right radio">
+                            <a class="pd-data-radio pd-data-radio-month pd-radio-25 active" data-action="contentType" data-value="0">
+                                <%=__('Text/Plain')%>
+                            </a>
+                            <a class="pd-data-radio pd-data-radio-month pd-radio-25" data-action="contentType" data-value="1">
+                                <%=__('Text/HTML')%>
+                            </a>
+                            <input class="hidden" type="text" name="txtContentType" id="txtContentType" value="">
+                        </div>
+                    </div>
+                </div>
+                <div class="data-page data-page-06 active">
+                    <div class="pd-sep"></div>
+                    <div class="pd-line">
+                        <div class="pd-line-left">
+                            <div class="pd-item-title">
+                                <%=__('Subject')%>
+                            </div>
+                            <div class="pd-item-des">Entry Resid</div>
+                        </div>
+                        <div class="pd-line-right">
+                            <input type="text" class="pd-item-resid" name="pd-item-resid-1" id="txtSubject" spellcheck="false" value="[$SUBJECT]">
+                        </div>
+                    </div>
+                    <div class="pd-line">
+                        <div class="pd-line-left">
+                            <div class="pd-item-title">
+                                <%=__('Content')%>
+                            </div>
+                            <div class="pd-item-des">Entry Resid</div>
+                        </div>
+                        <div class="pd-line-right">
+                            <textarea id="txtTextContent"></textarea>
+                            <textarea id="txtHtmlContent" style="display: none"></textarea>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="pd-submit alltrans" id="saveBtn">Save</a>
+        </div>
+    </section>
+    <%- partial('../partials/dialog.ejs') %>

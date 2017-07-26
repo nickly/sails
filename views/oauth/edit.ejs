@@ -1,0 +1,98 @@
+<%- partial('../partials/menu.ejs') %>
+    <script type="text/javascript">
+        var path = [
+            '../../js/src/views/oauthedit.js'
+        ]
+
+        require(path, function(callBack) {
+            callBack.constructor();
+        });
+    </script>
+    <section class="page">
+        <div class="block-topbar">
+            <div class="topbar-title uns">
+                <%=__("EDIT OAUTH")%>
+            </div>
+            <a class="topbar-btn uns" id="btn-new-template" href="/oauth">>>BACK</a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="block">
+            <div class="pd-data-area">
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('Enable')%>
+                        </div>
+                        <div class="pd-item-des">Disabled the oauth or not</div>
+                    </div>
+                    <div class="pd-line-right radio">
+                        <a class="pd-data-radio pd-data-radio-enable pd-radio-25 <%if(oauth.status==1){%> active <%}%>" data-action="status" data-value="1">ENABLE</a>
+                        <a class="pd-data-radio pd-data-radio-enable pd-radio-25 <%if(oauth.status==0){%> active <%}%>" data-action="status" data-value="0">DISABLE</a>
+                        <input class="hidden" type="text" name="pd-item-enable" id="txtEnable" value="<%=oauth.status%>">
+                    </div>
+                </div>
+                <div class="pd-sep">
+                </div>
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('Name')%>
+                        </div>
+                        <div class="pd-item-des">The Partner Name.</div>
+                    </div>
+                    <div class="pd-line-right">
+                        <input type="text" class="pd-item-resid" name="pd-item-resid-1" id="txtName" spellcheck="false" value="<%=oauth.name%>">
+                    </div>
+                </div>
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('Domain')%>
+                        </div>
+                        <div class="pd-item-des">The Domain are separated by semicolons.Start with http://</div>
+                    </div>
+                    <div class="pd-line-right">
+                        <input type="text" class="pd-item-resid" name="pd-item-resid-1" id="txtDomain" spellcheck="false" value="<%=oauth.domain%>">
+                    </div>
+                </div>
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('Ip')%>
+                        </div>
+                        <div class="pd-item-des">The IP are separated by semicolons.Like with ###.###.###.###</div>
+                    </div>
+                    <div class="pd-line-right">
+                        <input type="text" class="pd-item-resid" name="pd-item-resid-1" id="txtIP" spellcheck="false" value="<%=oauth.ip%>">
+                    </div>
+                </div>
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('AppID')%>
+                        </div>
+                        <div class="pd-item-des">Please remember it.This is for third party api communication.</div>
+                    </div>
+                    <div class="pd-line-right">
+                        <input type="text" class="pd-item-resid" readonly="readonly" name="pd-item-resid-1" id="txtAPPID" spellcheck="false" value="<%=oauth.appId%>">
+                    </div>
+                </div>
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('AppSecret')%>
+                        </div>
+                        <div class="pd-item-des">Please remember it.This is for third party api communication.</div>
+                    </div>
+                    <div class="pd-line-right">
+                        <input type="text" class="pd-item-resid" readonly="readonly" name="pd-item-resid-1" id="txtAPPSecret" spellcheck="false" value="<%=oauth.appSecret%>">
+                        <a class="pd-data-radio pd-data-radio-enable pd-radio-25" data-action="reset">RESET</a>
+
+                    </div>
+                </div>
+            </div>
+            <input type="hidden" id="oauthId" value="<%=oauth.id%>" />
+            <a class="pd-submit alltrans" id="saveBtn">Save</a>
+        </div>
+    </section>
+    <%- partial('../partials/dialog.ejs') %>

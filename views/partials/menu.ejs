@@ -1,0 +1,61 @@
+<%
+/**
+ * views/partials/menu.ejs
+ *
+ * > Note: This EJS comment won't show up in the ejs served to the browser.
+ * > So you can be as verbose as you like.  Just be careful not to inadvertently
+ * > type a percent sign followed by a greater-than sign (it'll bust you out of
+ * > the EJS block).
+ *
+ */%>
+    <script type="text/javascript">
+        var path = [
+            'js/src/views/mobile'
+        ]
+
+        require(path, function(mobile) {
+            mobile.initMobileMenu();
+        });
+    </script>
+    <nav class="active">
+
+        <a class="nav-logo" href="#" target="_blank"></a>
+
+        <div class="nav-section">
+            <div class="nav-section-name" id="section-name">HOV-EMAIL ADMIN</div>
+        </div>
+
+        <a class="nav-btn mobile" id="nav-btn"></a>
+
+        <ul class="nav-menu" id="nav-menu">
+
+            <div class="nav-sep dark"></div>
+            <% _.each(menus,function(item,index){%>
+                <%if(index==0){%>
+                    <li <% if(tag=="" ){%> class="active"
+                        <%} else if(tag==item.name){%> class="active"
+                            <%}%>>
+                                <a href="<%=item.url%>" class="uns">
+                                    <%=__(item.name)%>
+                                </a>
+                    </li>
+                    <%} else{%>
+                        <div class="nav-sep dark"></div>
+                        <li <% if(tag=="" ){%> class=""
+                            <%} else if(tag==item.name){%> class="active"
+                                <%}%>>
+                                    <a href="<%=item.url%>" class="uns">
+                                        <%=__(item.name)%>
+                                    </a>
+                        </li>
+                        <%}} );%>
+
+                            <div class="nav-sep dark"></div>
+                            <li class="">
+                                <a href="/logout" class="uns"><i class="fa fa-window-close"></i> LOGOUT</a>
+                            </li>
+        </ul>
+
+        <footer class="uns desktop">v1.0 July 29, 2017</footer>
+
+    </nav>

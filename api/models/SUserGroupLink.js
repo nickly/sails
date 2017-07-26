@@ -1,0 +1,12 @@
+///s_use_group表
+module.exports={
+     tableName:'s_user_group',
+     attributes:{
+         user_id:{
+             model:'SUser'
+         },
+         usergroup_id:{
+             model:'SUserGroup'
+         }
+     }
+}

@@ -1,0 +1,511 @@
+<link rel="stylesheet" href="/styles/newStyle.css">
+<link rel="stylesheet" href="/styles/newStyle_moblie.css">
+
+<script type="text/javascript">
+    var path = [
+        '../js/src/views/user'
+    ]
+
+    require(path, function(callBack) {
+        callBack.constructor();
+    });
+</script>
+
+
+<%- partial('./partials/menu.ejs') %>
+
+
+    <section class="page">
+
+        <div class="block-topbar">
+            <div class="topbar-title uns" id="title">USER ADMIN</div>
+
+            <div class="topbar-titleRight">
+                <a class="topbar-btn uns" id="openBtn">NEW</a>
+                <a class="topbar-btn uns" id="back_Btn" style="display:none;">&gt;&gt;BACK</a>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+
+
+        <div class="block">
+
+            <div class="search-bar" id="search-bar">
+                <div class="search_barBlock">
+                    <span class="searchFont">SEARCH :</span>
+                    <input name="search" type="text" value="" class="text" />
+                    <span class="button" id="searchBtn" data-type="searchUser">
+                        <i>Search</i>
+                    </span>
+                </div>
+            </div>
+
+
+
+            <div class="data-filter">
+                <div class="data-filter-item" id="filter-status">
+                    <div class="data-filter-item-title">
+                        STATUS
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <a class="filter-order-item active" data-state="-3" data-type="state">
+                    ALL
+                  </a>
+                        <a class="filter-order-item" data-state="1" data-type="state">
+                    ENABLE
+                  </a>
+                        <a class="filter-order-item" data-state="0" data-type="state">
+                    DISABLE
+                  </a>
+                    </div>
+                    <div class="clearfix"></div>
+                    <input type="hidden" id="stateHidden" value="-3" />
+                </div>
+
+                <div class="data-filter-item" id="filter-orderBy">
+
+                    <div class="data-filter-item-title">
+                        ORDER BY:
+                    </div>
+                    <div class="data-filter-item-ctn">
+                        <a class="filter-order-item active" data-state="loginName" data-type="order">
+                    LOGINNAME
+                  </a>
+                        <a class="filter-order-item" data-state="realName" data-type="order">
+                    REALNAME
+                  </a>
+                        <a class="filter-order-item" data-state="sex" data-type="order">
+                    SEX
+                  </a>
+                        <a class="filter-order-item" data-state="mobile" data-type="order">
+                    MOBILE
+                  </a>
+                        <a class="filter-order-item" data-state="email" data-type="order">
+                    EMAIL
+                  </a>
+                    </div>
+
+                    <div class="clearfix"></div>
+                    <input type="hidden" id="orderByHidden" value="realName" />
+
+                </div>
+
+            </div>
+
+
+            <div class="block minigap" id="page-bar">
+                <div class="data-filter">
+                    <div class="data-filter-item" id="pageContainer">
+                        <div class="data-filter-item-title">
+                            PAGE:
+                        </div>
+                        <div class="data-filter-item-ctn" id="pageContent">
+                            <%  for(var i=0; i<pageInfo.PageCount; i++){ %>
+                                <% if(pageInfo.PageIndex == (i+1)){ %>
+                                    <a class="filter-page-item filter-page-item-1  active" data="<%= (i+1) %>">
+                                        <%= (i+1) %>
+                                    </a>
+                                    <% }else{ %>
+                                        <a class="filter-page-item filter-page-item-1" data="<%= (i+1) %>">
+                                            <%= (i+1) %>
+                                        </a>
+                                        <% } %>
+                                            <% } %>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <input type="hidden" id="pageHidden" value="1" data-type="searchUser">
+                </div>
+            </div>
+
+
+            <!--  用户列表 -->
+            <div class="project-list-ctn" id="userList">
+                <table cellspacing="0" cellpadding="0" border="0" class="project-list" width="100%">
+                    <tr class="head">
+                        <td class="user-item" width="15%">LOGINNAME</td>
+                        <td class="user-item" width="15%">REALNAME</td>
+                        <td class="user-item" width="5%">SEX</td>
+                        <td class="user-item" width="15%">MOBILE</td>
+                        <td class="user-item" width="15%">EMAIL</td>
+                        <td class="user-item" width="35%">STATUS</td>
+                    </tr>
+
+                    <% userList.forEach(function(item){%>
+
+                        <tr data-id="<%= item.id %>">
+                            <td class="user-item  user-loginName" valign="middle" width="15%">
+                                <%= item.loginName %>
+                            </td>
+                            <td class="user-item  user-realName" valign="middle" width="15%">
+                                <%= item.realName %>
+                            </td>
+                            <td class="user-item  user-sex" valign="middle" width="5%">
+                                <% if(item.sex==0){ %>
+                                    MALE
+                                    <% }else{ %>
+                                        FEMALE
+                                        <% } %>
+                                            <input name="sex" type="hidden" value="<%= item.sex %>" class="input_text" />
+                            </td>
+                            <td class="user-item user-mobile" valign="middle" width="15%">
+                                <%= item.mobile %>
+                            </td>
+                            <td class="user-item user-email" valign="middle" width="15%">
+                                <%= item.email %>
+                            </td>
+                            <td class="user-item" valign="middle" width="35%">
+                                <%if (item.state){ %>
+                                    <a class="list-btnMargin  list-btn status check active" data-state='1'>
+                                        <i class="fa fa-check" aria-hidden="true"></i>
+                                    </a>
+                                    <% }else{ %>
+                                        <a class="list-btnMargin list-btn status cross" data-state='0'>
+                                            <i class="fa fa-times" aria-hidden="true"></i>
+                                        </a>
+                                        <% } %><a class="btn-city btn-edit">Edit</a><a class="btn-city btn-delete">Del</a><a class="btn-city btn-power">Setting</a>
+                            </td>
+                        </tr>
+
+                        <% }) %>
+                </table>
+            </div>
+
+            <!--  新增用户 -->
+            <div class="add_userBlock" id="addNewUser">
+                <!--<div class="header">Add New User</div>-->
+                <ul>
+                    <li>
+                        <div class="left">LOGIN NAME:</div>
+                        <div class="right"><input name="loginName" type="text" value="" class="input_text" /></div>
+                    </li>
+                    <li>
+                        <div class="left">LOGIN PASSWORD:</div>
+                        <div class="right"><input name="loginPassword" type="password" value="" class="input_text" /></div>
+                    </li>
+                    <li>
+                        <div class="left">REAL NAME:</div>
+                        <div class="right"><input name="realName" type="text" value="" class="input_text" /></div>
+                    </li>
+                    <li>
+                        <div class="left  leftLineHeight">SEX:</div>
+                        <div class="right">
+                            <div class="data-filter-item-ctn data_sex">
+                                <a class="filter-order-item active" data-type="0">
+                                  MALE
+                                </a>
+                                <a class="filter-order-item" data-type="1">
+                                  FEMALE
+                                </a>
+                                <input name="sex" type="hidden" value="0" class="input_text" />
+                            </div>
+
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left">MOBILE:</div>
+                        <div class="right"><input name="mobile" type="number" value="" class="input_text" /></div>
+                    </li>
+                    <li>
+                        <div class="left">EMAIL:</div>
+                        <div class="right"><input name="email" type="text" value="" class="input_text" /></div>
+                    </li>
+                    <li class="bottom">
+                        <span class="subButton alltrans" id="add_submit" action='add'>Save</span>
+                    </li>
+                </ul>
+            </div>
+
+            <!--  编辑用户 -->
+            <div class="add_userBlock" id="editUser">
+                <!--<div class="header">Edit User</div>-->
+                <ul user-id="">
+                    <li>
+                        <div class="left">LOGIN NAME:</div>
+                        <div class="right"><input name="loginName" type="text" value="" class="input_text" /></div>
+                    </li>
+                    <li>
+                        <div class="left">LOGIN PASSWORD:</div>
+                        <div class="right"><input name="loginPassword" type="password" value="" class="input_text" /></div>
+                    </li>
+                    <li>
+                        <div class="left">REAL NAME:</div>
+                        <div class="right"><input name="realName" type="text" value="" class="input_text" /></div>
+                    </li>
+                    <li>
+                        <div class="left  leftLineHeight">SEX:</div>
+                        <div class="right">
+                            <div class="data-filter-item-ctn data_sex">
+                                <a class="filter-order-item active" data-type="0">
+                                                       MALE
+                                                 </a>
+                                <a class="filter-order-item" data-type="1">
+                                                       FEMALE
+                                                  </a>
+                                <input name="sex" type="hidden" value="0" class="input_text" />
+                            </div>
+
+                        </div>
+                    </li>
+                    <li>
+                        <div class="left">MOBILE:</div>
+                        <div class="right"><input name="mobile" type="number" value="" class="input_text" /></div>
+                    </li>
+                    <li>
+                        <div class="left">EMAIL:</div>
+                        <div class="right"><input name="email" type="text" value="" class="input_text" /></div>
+                    </li>
+                    <li class="bottom">
+                        <span class="subButton alltrans" id="edit_submit" action='edit'>Save</span>
+                    </li>
+                </ul>
+            </div>
+
+
+        </div>
+        </div>
+    </section>
+
+
+
+    <section class="window alltrans" id="window-group">
+
+        <div class="window-ctn">
+            <div class="window-title"><span>Setting Role</span></div>
+            <div class="window-data-area">
+                <div class="window-data-line">
+                    <div class="window-data-line-left">
+                        <div class="window-data-item-title">Role List</div>
+                        <div class="window-data-item-des">Required</div>
+                    </div>
+                    <div class="window-data-line-right">
+                        <div class="data-filter-item-ctn2">
+                            <%_.each(roleList,function(item,index){%>
+                                <a class="filter-market-item" data="<%=item.id%>" data-action="Role">
+                                    <%=__(item.name)%>
+                                </a>
+                                <%});%>
+                                    <input type="hidden" id="newRoleId" value="" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="window-data-area  window-data-areaHeight">
+
+                <input type="hidden" id="screenHidden" value="-3">
+                <div class="window-data-line  window_overflow"> -->
+
+            <!-- 选择角色  -->
+            <!-- <div class="project-list-ctn" id="selectUserList">
+                        <table cellspacing="0" cellpadding="0" border="0" class="project-list" width="100%">
+                        </table>
+                    </div> -->
+
+            <!-- </div>
+
+
+            </div> -->
+
+            <div class="window-action-area">
+                <input type="hidden" id="userId" value="" />
+                <a class="window-action-btn" id="btn-remove-category-submit">Submit</a>
+                <a class="window-action-btn" id="btn-remove-category-cancel">Cancel</a>
+                <!--<a class="window-action-btn" id="btn-list-submit">Submit</a>-->
+                <!-- <a class="window-action-btn" id="btn-list-cancel" style="width:100%">OK</a> -->
+            </div>
+
+        </div>
+
+    </section>
+
+
+
+    <section class="window alltrans" id="window-new-user">
+
+        <div class="window-ctn">
+
+            <div class="window-title"><span>Create New User</span></div>
+
+            <div class="window-data-area">
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">Username</div>
+                        <div class="window-data-item-des">Case sensitive</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="text" name="new-user-username" id="new-user-username">
+
+                    </div>
+
+                </div>
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">Password</div>
+                        <div class="window-data-item-des">Case sensitive</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="password" name="new-user-password" id="new-user-password">
+
+                    </div>
+
+                </div>
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">Re-password</div>
+                        <div class="window-data-item-des">Case sensitive</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="password" name="new-user-repassword" id="new-user-repassword">
+
+                    </div>
+
+                </div>
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">User Type</div>
+                        <div class="window-data-item-des"></div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <a class="window-data-radio radio-50" data="0">USER</a>
+                        <a class="window-data-radio radio-50" data="1">ADMINISTRATOR</a>
+                        <input class="hidden" type="text" name="new-user-level" id="new-user-level" value="0">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="window-action-area">
+
+                <a class="window-action-btn" id="btn-new-user-submit">Submit</a>
+                <a class="window-action-btn" id="btn-new-user-cancel">Cancel</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section class="window alltrans" id="window-reset-user">
+
+        <div class="window-ctn">
+
+            <div class="window-title" id="window-title-reset-user"><span>Reset Password</span></div>
+
+            <div class="window-data-area">
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">New Password</div>
+                        <div class="window-data-item-des">Case sensitive</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="password" name="reset-user-password" id="reset-user-password">
+
+                    </div>
+
+                </div>
+
+                <div class="window-data-line">
+
+                    <div class="window-data-line-left">
+
+                        <div class="window-data-item-title">Re-password</div>
+                        <div class="window-data-item-des">Case sensitive</div>
+
+                    </div>
+
+                    <div class="window-data-line-right">
+
+                        <input type="password" name="reset-user-repassword" id="reset-user-repassword">
+
+                    </div>
+
+                </div>
+
+            </div>
+
+            <div class="window-action-area">
+
+                <a class="window-action-btn" id="btn-reset-user-submit">Submit</a>
+                <a class="window-action-btn" id="btn-reset-user-cancel">Cancel</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="tip-alert-layer" class="tip-layer alltrans">
+
+        <div id="tip-alert" class="tip-board alltrans">
+
+            <div id="tip-alert-text" class="tip-text"></div>
+
+            <div class="tip-btnarea">
+
+                <a id="tip-alert-btn" class="tip-btn">OK</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section id="tip-confirm-layer" class="tip-layer alltrans">
+
+        <div id="tip-confirm" class="tip-board alltrans">
+
+            <div id="tip-confirm-text" class="tip-text"></div>
+
+            <div class="tip-btnarea">
+
+                <a id="tip-confirm-btn1" class="tip-btn alltrans">Yes</a>
+                <a id="tip-confirm-btn2" class="tip-btn alltrans">Cancel</a>
+
+            </div>
+
+        </div>
+
+    </section>
+
+    <section id="tip-info-layer" class="tip-layer alltrans">
+
+        <div id="tip-info" class="tip-board alltrans">
+
+            <div id="tip-info-text" class="tip-text">Please Wait...</div>
+
+        </div>
+
+    </section>

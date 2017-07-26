@@ -1,0 +1,20 @@
+///s_usergroup用户组 实体
+module.exports={
+   tableName:'s_usergroup',
+   attributes:{
+       id:{
+           type:'integer',
+           autoIncrement:true,
+           primaryKey:true,
+           unique:true
+       },
+       groupname:{
+           type:'string',
+           size:150
+       },
+       description:{
+           type:'string',
+           size:250
+       }
+   }
+};

@@ -1,0 +1,88 @@
+<script type="text/javascript">
+    var path = [
+        'js/src/views/<%=jsPath%>'
+    ]
+
+    require(path, function(callBack) {
+        callBack.constructor();
+    });
+</script>
+
+<section class="login-page">
+
+    <div class="login-ctn">
+
+        <div class="login-logo"></div>
+
+        <div class="login-title">
+            <%= __('HOUSE OF VANS ASIA') %>
+        </div>
+        <div class="login-site">
+            <%= __('E-MAIL SYSTEM') %>
+        </div>
+
+        <div class="login-data">
+
+            <input type="text" name="username" id="username" autocomplete="off" value="username">
+            <input type="password" name="username" id="password" autocomplete="off" value="password">
+
+        </div>
+
+        <a class="login-btn" id="btn-login" tabindex="0">
+            <%= __('SIGN IN') %>
+        </a>
+
+    </div>
+
+</section>
+
+<section id="tip-alert-layer" class="tip-layer alltrans">
+
+    <div id="tip-alert" class="tip-board alltrans">
+
+        <div id="tip-alert-text" class="tip-text"></div>
+
+        <div class="tip-btnarea">
+
+            <a id="tip-alert-btn" class="tip-btn">
+                <%= __('OK') %>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<section id="tip-confirm-layer" class="tip-layer alltrans">
+
+    <div id="tip-confirm" class="tip-board alltrans">
+
+        <div id="tip-confirm-text" class="tip-text"></div>
+
+        <div class="tip-btnarea">
+
+            <a id="tip-confirm-btn1" class="tip-btn alltrans">
+                <%= __('Yes') %>
+            </a>
+            <a id="tip-confirm-btn2" class="tip-btn alltrans">
+                <%= __('Cancel') %>
+            </a>
+
+        </div>
+
+    </div>
+
+</section>
+
+<section id="tip-info-layer" class="tip-layer alltrans">
+
+    <div id="tip-info" class="tip-board alltrans">
+
+        <div id="tip-info-text" class="tip-text">
+            <%= __('Please Wait') %>...</div>
+
+    </div>
+
+</section>

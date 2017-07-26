@@ -1,0 +1,37 @@
+///s_action权限Action实体
+module.exports={
+   tableName:'s_action',
+   attributes:{
+       id:{
+           type:'integer',
+           autoIncrement:true,
+           primaryKey:true,
+           unique:true
+       },
+       name:{
+           type:'string',
+           size:100
+       },
+       code:{
+           type:'string',
+           size:100
+       },
+       actionName:{
+           type:'string'
+       },
+       controllerName:{
+           type:'string',
+           size:250
+       },
+       description:{
+           type:'string',
+           size:500
+       },
+       createTime:{
+           type:'datetime'
+       },
+       isDelete:{
+           type:'boolean'
+       }
+   }
+};

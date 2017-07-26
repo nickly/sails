@@ -1,0 +1,37 @@
+<%list.oauth.forEach(function(item){%>
+    <li>
+        <a class="list-item w10">
+            <%=Util.formartOAuthID(item.id)%>
+        </a>
+        <a class="list-item w10">
+            <%=item.name%>
+        </a>
+        <a class="list-item w10">
+            <%=item.domain.Substring(20)%>
+        </a>
+        <a class="list-item w10">
+            <%=item.ip.Substring(20)%>
+        </a>
+        <a class="list-item w20">
+            <%=item.appId%>
+        </a>
+        <a class="list-item w20">
+            <%=item.appSecret%>
+        </a>
+        <span class="list-item right">
+<%if(item.status==1){%>
+                                <a class="list-btn status check active" data-value="<%=item.id%>" data-type="<%=item.status%>">
+                                    <i class="fa fa-check" aria-hidden="true"></i>
+                                </a>
+                                <%} else{%>
+                                    <a class="list-btn status cross" data-value="<%=item.id%>" data-type="<%=item.status%>">
+                                        <i class="fa fa-times" aria-hidden="true"></i>
+                                    </a>
+                                    <%}%>
+                                        <a class="list-btn text margin" data-action="DELETE" data-value="<%=item.id%>">DELETE</a>
+                                        <a class="list-btn text margin" href="/oauth/edit/<%=item.id%>">EDIT</a>
+                            </span>
+
+
+    </li>
+    <%});%>

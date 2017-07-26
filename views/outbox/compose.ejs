@@ -1,0 +1,140 @@
+<%- partial('../partials/menu.ejs') %>
+    <link rel="stylesheet" href="/plugins/datetimepicker/jquery.datetimepicker.min.css">
+    <script type="text/javascript">
+        var path = [
+            '../js/src/views/outboxcompose.js'
+        ]
+
+        require(path, function(callBack) {
+            callBack.initTinymce();
+            callBack.constructor();
+        });
+    </script>
+    <section class="page">
+        <div class="block-topbar">
+            <div class="topbar-title uns">
+                <%=__("NEW MAIL")%>
+            </div>
+            <a class="topbar-btn uns" id="btn-new-template" href="/outbox">>>BACK</a>
+            <div class="clearfix"></div>
+        </div>
+        <div class="block">
+            <div class="pd-data-area">
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('Category')%>
+                        </div>
+                        <div class="pd-item-des">Choose the template category</div>
+                    </div>
+                    <div class="pd-line-right radio">
+                        <%_.each(categoryList,function(item,index){%>
+                            <a class="pd-data-radio pd-data-radio-month pd-radio-25" data-action="category" data-value="<%=item.id%>">
+                                <%=__(item.categoryName)%>
+                                    <span class="num">(<%=item.templates.length%>)</span>
+                            </a>
+                            <%});%>
+                                <input class="hidden" type="text" name="txtCategoryId" id="txtCategoryId" value="">
+                    </div>
+                </div>
+                <div class="pd-line">
+                    <div class="pd-line-left">
+                        <div class="pd-item-title">
+                            <%=__('Template')%>
+                        </div>
+                        <div class="pd-item-des">Selected the email template to send.</div>
+                    </div>
+                    <div class="pd-line-right radio">
+                        <select id="templateSelect">
+                            <option value="-1">==SELECTED CATEGORY==</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="data-page data-page-06 active">
+                    <div class="pd-sep"></div>
+                    <div class="pd-line">
+                        <div class="pd-line-left">
+                            <div class="pd-item-title">
+                                <%=__('Subject')%>
+                            </div>
+                            <div class="pd-item-des">Entry Resid</div>
+                        </div>
+                        <div class="pd-line-right">
+                            <input type="text" class="pd-item-resid" name="pd-item-resid-1" id="txtSubject" spellcheck="false" value="">
+                        </div>
+                    </div>
+                    <div class="pd-line">
+                        <div class="pd-line-left">
+                            <div class="pd-item-title">
+                                <%=__('Recipient')%>
+                            </div>
+                            <div class="pd-item-des">Entry Resid.The recipients are separated by semicolons.</div>
+                        </div>
+                        <div class="pd-line-right">
+                            <input type="text" class="pd-item-resid" name="pd-item-resid-1" id="txtRecipient" spellcheck="false" value="">
+                        </div>
+                    </div>
+                    <div class="pd-line">
+                        <div class="pd-line-left">
+                            <div class="pd-item-title">
+                                <%=__('Content Type')%>
+                            </div>
+                            <div class="pd-item-des">Choose the mail content type.</div>
+                        </div>
+                        <div class="pd-line-right radio">
+                            <a class="pd-data-radio pd-data-radio-month pd-radio-25 active" data-action="contentType" data-value="0">
+                                <%=__('Text/Plain')%>
+                            </a>
+                            <a class="pd-data-radio pd-data-radio-month pd-radio-25" data-action="contentType" data-value="1">
+                                <%=__('Text/HTML')%>
+                            </a>
+                            <input class="hidden" type="text" name="txtContentType" id="txtContentType" value="0">
+                        </div>
+                    </div>
+                    <div class="pd-line">
+                        <div class="pd-line-left">
+                            <div class="pd-item-title">
+                                <%=__('Content')%>
+                            </div>
+                            <div class="pd-item-des">Entry Resid</div>
+                        </div>
+                        <div class="pd-line-right">
+                            <textarea id="txtTextContent"></textarea>
+                            <textarea id="txtHtmlContent" style="display: none"></textarea>
+
+                        </div>
+                    </div>
+                    <div class="pd-line">
+                        <div class="pd-line-left">
+                            <div class="pd-item-title">
+                                <%=__('Time Task')%>
+                            </div>
+                            <div class="pd-item-des">Choose the mail is or not a regular task.</div>
+                        </div>
+                        <div class="pd-line-right radio">
+                            <a class="pd-data-radio pd-data-radio-month pd-radio-25" data-action="isTime" data-value="1">
+                                <%=__('YES')%>
+                            </a>
+                            <a class="pd-data-radio pd-data-radio-month pd-radio-25 active" data-action="isTime" data-value="0">
+                                <%=__('NO')%>
+                            </a>
+                            <input class="hidden" type="text" name="txtIsTime" id="txtIsTime" value="0">
+                        </div>
+                    </div>
+                    <div class="pd-line" style="display: none;" id="timeContainer">
+                        <div class="pd-line-left">
+                            <div class="pd-item-title">
+                                <%=__('Time')%>
+                            </div>
+                            <div class="pd-item-des">Choose the mail trigger time.</div>
+                        </div>
+                        <div class="pd-line-right">
+                            <input type="text" class="pd-item-resid" disabled="disabled" name="pd-item-resid-1" id="txtTime" spellcheck="false" value="">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a class="pd-submit alltrans" id="saveBtn">Send</a>
+        </div>
+    </section>
+    <%- partial('../partials/dialog.ejs') %>
